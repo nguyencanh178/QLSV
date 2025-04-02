@@ -6,10 +6,12 @@
     <title>Quản lý Thành viên</title>
     <style>
         body { 
-            font-family: Arial, 
-            sans-serif; 
+            font-family: Arial, sans-serif; 
             margin: 20px; 
-            background-color: #f0f8ff; 
+            background-image: url('background.jpg'); /* Đảm bảo ảnh nằm cùng thư mục với file HTML */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         h2, h3 { color: #2c3e50; }
         input, button { margin: 5px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
@@ -43,6 +45,10 @@
         </thead>
         <tbody id="memberList"></tbody>
     </table>
+
+    <h3>Xóa thành viên</h3>
+    <label>Nhập tên thành viên cần xóa: <input type="text" id="deleteName"></label>
+    <button onclick="deleteMember()">Xóa Thành viên</button>
 
     <script>
         let members = [];
