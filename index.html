@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Thành viên</title>
+    <style>
+        body { 
+            font-family: Arial, 
+            sans-serif; 
+            margin: 20px; 
+            background-color: #f0f8ff; 
+        }
+        h2, h3 { color: #2c3e50; }
+        input, button { margin: 5px; padding: 8px; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #3498db; color: white; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: white; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #3498db; color: white; }
+    </style>
+</head>
+<body>
+    <h2>Quản lý Thành viên Nhóm</h2>
+    <label>Họ và Tên: <input type="text" id="name"></label>
+    <label>Ngày sinh: <input type="date" id="dob"></label>
+    <label>Quê quán: <input type="text" id="hometown"></label>
+    <button onclick="addMember()">Thêm Thành viên</button>
+    
+    <h3>Tìm kiếm</h3>
+    <label>Tìm theo tên: <input type="text" id="searchName" oninput="searchByName()"></label>
+    <label>Tìm theo quê quán: <input type="text" id="searchHometown" oninput="searchByHometown()"></label>
+    
+    <h3>Danh sách thành viên</h3>
+    <button onclick="sortMembers()">Sắp xếp theo tuổi</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Họ và Tên</th>
+                <th>Ngày sinh</th>
+                <th>Quê quán</th>
+            </tr>
+        </thead>
+        <tbody id="memberList"></tbody>
+    </table>
+
+    <script>
+        let members = [];
+
+        function addMember() {
+            let name = document.getElementById('name').value;
+            let dob = document.getElementById('dob').value;
+            let hometown = document.getElementById('hometown').value;
+            
+            if (name && dob && hometown) {
+                members.push({ name, dob, hometown });
+                displayMembers(members);
+            }
+        }
+
+        function displayMembers(list) {
+            let tableBody = document.getElementById('memberList');
+            tableBody.innerHTML = '';
+            list.forEach(member => {
+                let row = `<tr><td>${member.name}</td><td>${member.dob}</td><td>${member.hometown}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function searchByName() {
+            let query = document.getElementById('searchName').value.toLowerCase();
+            let filtered = members.filter(m => m.name.toLowerCase().includes(query));
+            displayMembers(filtered);
+        }
+
+        function searchByHometown() {
+            let query = document.getElementById('searchHometown').value.toLowerCase();
+            let filtered = members.filter(m => m.hometown.toLowerCase().includes(query));
+            displayMembers(filtered);
+        }
+
+        function sortMembers() {
+            members.sort((a, b) => new Date(a.dob) - new Date(b.dob));
+            displayMembers(members);
+        }
+    </script>
+</body>
+</html>
