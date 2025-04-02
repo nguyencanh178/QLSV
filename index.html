@@ -1,109 +1,109 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8"> <!--Định dạng ký tự UTF-8 để hỗ trợ tiếng Việt */ -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Đảm bảo tương thích với các trình duyệt IE -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Thành viên</title>
+    <title>Quản lý Thành Viên</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body { 
             font-family: Arial, sans-serif; 
             margin: 20px; 
-            background-image: url('background.jpg'); /* Đảm bảo ảnh nằm cùng thư mục với file HTML */
+            background-image: url('background.jpg'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
-        h2, h3 { 
-            color: #2c3e50; 
-        }
-        input, button { 
-            margin: 5px; 
-            padding: 8px; 
-            border-radius: 5px; 
-            border: 1px solid #ccc; 
-           width: calc(100% - 20px); /* Đảm bảo ô nhập chiếm toàn bộ chiều rộng */
-        }
-        button { 
-            background-color: #3498db; 
-            color: white; 
-            cursor: pointer; 
-        }
-        button:hover { 
-            background-color: #2980b9; 
-           /* Màu nền khi di chuột qua nút */
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 10px; 
-            background-color: white; 
-           /* Màu nền trắng cho bảng */
-        }
-        th, td { 
-            border: 1px solid black; 
-            padding: 8px; 
-            text-align: left; 
-           /* Căn trái cho nội dung ô */
-        }
-        th { 
-            background-color: #3498db; 
-            color: white; 
+        .container { 
+            max-width: 800px; 
+            margin-top: 20px; 
         }
         .title {
+            color: #ff0011; 
+            font-size: 40px;
             font-weight: bold;
-            color: #ff0000; /* Màu đỏ đậm */
-        }
+            text-align: center; 
+            margin-bottom: 20px; 
+        }    
     </style>
-</head> 
+</head>
 
-    <!-- Tiêu đề của trang web như thấy trên tab của trình duyệt -->  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">  
-    <!-- Liên kết đến CSS Bootstrap để tạo kiểu cho các thành phần -->  
-    <style>  
-        /* Các kiểu tùy chỉnh cho trang */  
-        body { font-family: Arial, sans-serif; 
-            margin: 20px; 
-            background-image: url('background.jpg'); /* Đảm bảo ảnh nằm cùng thư mục với file HTML */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;}  
-        /* Thiết lập màu nền cho trang */  
-        .container { max-width: 800px; margin-top: 20px; }  
-        /* Thiết lập chiều rộng tối đa cho container và khoảng cách từ trên xuống */  
-    </style>  
-</head>  
 <body>  
-    <!-- Bắt đầu phần thân của tài liệu HTML -->  
     <div class="container">  
-        <!-- Container cho nội dung, sử dụng Bootstrap để tạo kiểu -->  
-        <h2 class="text-center title">Quản Lý Thành Viên</h2>  
-        <!-- Tiêu đề cho trang, căn giữa và được định kiểu bằng lớp title -->  
+        <h2 class="text-center title">Quản Lý Thành Viên Nhóm</h2>  
         <div class="mb-3">  
-            <!-- Khoảng cách dưới cho mục này -->  
             <input type="text" id="name" class="form-control" placeholder="Nhập họ và tên">  
-            <!-- Ô nhập văn bản cho tên; lớp 'form-control' định kiểu theo Bootstrap -->  
             <input type="date" id="dob" class="form-control mt-2">  
-            <!-- Ô nhập ngày cho ngày sinh, được định kiểu bằng Bootstrap; 'mt-2' thêm khoảng cách trên -->  
             <input type="text" id="hometown" class="form-control mt-2" placeholder="Nhập quê quán">  
-            <!-- Ô nhập văn bản cho quê quán, được định kiểu bằng Bootstrap -->  
             <button class="btn btn-success mt-2" onclick="addMember()">Thêm Thành Viên</button>  
-            <!-- Nút để gọi hàm 'addMember', được định kiểu như một nút thành công -->  
         </div>  
         
         <input type="text" id="search" class="form-control" placeholder="Tìm kiếm theo tên" onkeyup="filterMembers()">  
-        <!-- Ô nhập văn bản để tìm kiếm thành viên theo tên, gọi hàm 'filterMembers' khi nhấn phím -->  
         <input type="text" id="searchHometown" class="form-control mt-2" placeholder="Tìm kiếm theo quê quán" onkeyup="filterMembers()">  
-        <!-- Ô nhập văn bản để tìm kiếm thành viên theo quê quán, gọi hàm 'filterMembers' khi nhấn phím -->  
-        
         <button class="btn btn-primary mt-2" onclick="sortByAge()">Sắp xếp theo tuổi</button>  
-        <!-- Nút để sắp xếp thành viên theo tuổi, gọi hàm 'sortByAge' khi nhấn -->  
         
-        <ul class="list-group mt-3" id="memberList"></ul>  
-        <!-- Danh sách không thứ tự để hiển thị danh sách các thành viên, ID 'memberList' sẽ được sử dụng để thao tác qua JavaScript -->  
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Họ và Tên</th>
+                    <th>Ngày sinh</th>
+                    <th>Tuổi</th>
+                    <th>Quê quán</th>
+                </tr>
+            </thead>
+            <tbody id="memberList"></tbody>
+        </table>
     </div>  
 
-    <script src="script.js"></script>  
-    <!-- Tham chiếu đến file JavaScript bên ngoài để xử lý các chức năng -->  
+    <script>
+        let members = [];
+
+        function calculateAge(dob) {
+            let birthDate = new Date(dob);
+            let today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        function addMember() {
+            let name = document.getElementById('name').value;
+            let dob = document.getElementById('dob').value;
+            let hometown = document.getElementById('hometown').value;
+            
+            if (name && dob && hometown) {
+                let age = calculateAge(dob);
+                members.push({ name, dob, age, hometown });
+                displayMembers(members);
+            }
+        }
+
+        function displayMembers(list) {
+            let tableBody = document.getElementById('memberList');
+            tableBody.innerHTML = '';
+            list.forEach(member => {
+                let row = `<tr><td>${member.name}</td><td>${member.dob}</td><td>${member.age}</td><td>${member.hometown}</td></tr>`;
+                tableBody.innerHTML += row;
+            });
+        }
+
+        function filterMembers() {
+            let nameQuery = document.getElementById('search').value.toLowerCase();
+            let hometownQuery = document.getElementById('searchHometown').value.toLowerCase();
+            let filtered = members.filter(m => 
+                m.name.toLowerCase().includes(nameQuery) && 
+                m.hometown.toLowerCase().includes(hometownQuery)
+            );
+            displayMembers(filtered);
+        }
+
+        function sortByAge() {
+            members.sort((a, b) => a.age - b.age);
+            displayMembers(members);
+        }
+    </script>
 </body>  
 </html>
