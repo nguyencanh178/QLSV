@@ -6,7 +6,7 @@
     <title>Quản lý Thành Viên</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body { 
+        body {                                  /*Background color and font style*/
             font-family: Arial, sans-serif; 
             margin: 20px; 
             background-image: url('background.jpg'); 
@@ -14,7 +14,7 @@
             background-position: center;
             background-attachment: fixed;
         }
-        .container { 
+        .container {  /*Container style*/ 
             max-width: 800px; 
             margin-top: 20px; 
         }
@@ -78,6 +78,9 @@
                 let age = calculateAge(dob);
                 members.push({ name, dob, age, hometown });
                 displayMembers(members);
+                document.getElementById('name').value = "";
+                document.getElementById('dob').value = "";
+                document.getElementById('hometown').value = "";
             }
         }
 
@@ -107,3 +110,4 @@
     </script>
 </body>  
 </html>
+
